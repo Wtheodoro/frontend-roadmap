@@ -8,8 +8,8 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 
 **Goal**: Learn basic syntax and programming logic.
 
-- **Monday**: Variables (let, const), data types, operators
-- **Tuesday**: Conditional structures (if, else, switch)
+- **Monday**: [Variables (let, const), data types, operators](week1/monday.md)
+- **Tuesday**: [Conditional structures (if, else, switch)](week1/tuesday.md)
 - **Wednesday**: Loops (for, while, map, forEach)
 - **Thursday**: Functions (function, arrow functions, parameters, return)
 - **Friday**: Objects and Arrays ({}, []), methods (push, pop, filter)
