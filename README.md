@@ -12,9 +12,9 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 - **Tuesday**: [Conditional structures (if, else, switch)](week1/tuesday.md)
 - **Wednesday**: [Loops (for, while, map, forEach)](week1/wednesday.md)
 - **Thursday**: [Functions (function, arrow functions, parameters, return)](week1/thursday.md)
-- **Friday**: Objects and Arrays ({}, []), methods (push, pop, filter)
+- **Friday**: [Objects and Arrays ({}, []), methods (push, pop, filter)](week1/friday.md)
 
-**Practical Project**: Create a console-based program simulating a product or user registration system (stored in an array).
+**Practical Project**: [Create a console-based program simulating a product or user registration system (stored in an array).](week1/week-project/project.md)
 
 ### 🔥 Week 2 - JavaScript: Advanced Concepts
 
