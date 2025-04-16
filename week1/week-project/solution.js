@@ -26,17 +26,16 @@ function addProduct(name, price, category, stock) {
 }
 
 function removeProduct(id) {
-  // Find product index
-  const productIndex = products.findIndex((product) => product.id === id)
-
   // Check if product exists
-  if (productIndex === -1) {
+  const productExists = products.some((product) => product.id === id)
+
+  if (!productExists) {
     console.log('❌ Product not found!')
     return false
   }
 
-  // Remove product
-  products.splice(productIndex, 1)
+  // Remove product using filter
+  products = products.filter((product) => product.id !== id)
   console.log('✅ Product removed successfully!')
   return true
 }
