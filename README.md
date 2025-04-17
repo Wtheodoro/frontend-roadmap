@@ -20,10 +20,10 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 
 **Goal**: Deepen essential concepts for real projects.
 
-- **Monday**: Array Manipulation (map, filter, reduce)
-- **Tuesday**: Object Manipulation (Object.keys(), Object.values())
-- **Wednesday**: Asynchronous Functions (setTimeout, setInterval, Promises)
-- **Thursday**: async/await and API consumption with fetch
+- **Monday**: [Array Manipulation (map, filter, reduce)](week2/monday.md)
+- **Tuesday**: [Object Manipulation (Object.keys(), Object.values())](week2/tuesday.md)
+- **Wednesday**: [Asynchronous Functions (setTimeout, setInterval, Promises)](week2/wednesday.md)
+- **Thursday**: [async/await and API consumption with fetch](week2/thursday.md)
 - **Friday**: LocalStorage and JSON (JSON.stringify, JSON.parse)
 
 **Practical Project**: Create a console app that consumes a real API (e.g., fetching user data from JSONPlaceholder).
