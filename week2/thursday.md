@@ -401,517 +401,239 @@ async function fetchData(url) {
 
 ## Practical Examples
 
-### Example 1: Fetching and Displaying User Data
+### Example 1: Basic API Calls
 
 ```javascript
-async function fetchAndDisplayUser(userId) {
+// Função para buscar um post
+async function fetchPost(id) {
   try {
-    // Show loading state
-    document.getElementById('user-container').innerHTML = 'Loading...'
-
-    // Fetch user data
-    const user = await fetchData(
-      `https://jsonplaceholder.typicode.com/users/${userId}`
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${id}`
     )
 
-    // Fetch user posts
-    const posts = await fetchData(
-      `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-    )
-
-    // Display user data
-    document.getElementById('user-container').innerHTML = `
-      <h2>${user.name}</h2>
-      <p>Email: ${user.email}</p>
-      <p>Company: ${user.company.name}</p>
-      <h3>Posts (${posts.length})</h3>
-      <ul>
-        ${posts.map((post) => `<li>${post.title}</li>`).join('')}
-      </ul>
-    `
-  } catch (error) {
-    document.getElementById('user-container').innerHTML = `
-      <div class="error">Error: ${error.message}</div>
-    `
-  }
-}
-
-// Helper function for fetching data
-async function fetchData(url) {
-  const response = await fetch(url)
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! Status: ${response.status}`)
-  }
-
-  return response.json()
-}
-
-// Usage
-fetchAndDisplayUser(1)
-```
-
-### Example 2: Creating a Simple API Client
-
-```javascript
-class ApiClient {
-  constructor(baseUrl, defaultHeaders = {}) {
-    this.baseUrl = baseUrl
-    this.defaultHeaders = defaultHeaders
-  }
-
-  async request(endpoint, options = {}) {
-    const url = `${this.baseUrl}${endpoint}`
-    const headers = { ...this.defaultHeaders, ...options.headers }
-
-    try {
-      const response = await fetch(url, { ...options, headers })
-
-      if (!response.ok) {
-        let errorMessage
-        try {
-          const errorData = await response.json()
-          errorMessage =
-            errorData.message || `HTTP error! Status: ${response.status}`
-        } catch (e) {
-          errorMessage = `HTTP error! Status: ${response.status}`
-        }
-
-        throw new Error(errorMessage)
-      }
-
-      return response.json()
-    } catch (error) {
-      console.error(`API request failed: ${error.message}`)
-      throw error
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
     }
-  }
 
-  // GET request
-  async get(endpoint, options = {}) {
-    return this.request(endpoint, { ...options, method: 'GET' })
-  }
-
-  // POST request
-  async post(endpoint, data, options = {}) {
-    return this.request(endpoint, {
-      ...options,
-      method: 'POST',
-      body: JSON.stringify(data),
-    })
-  }
-
-  // PUT request
-  async put(endpoint, data, options = {}) {
-    return this.request(endpoint, {
-      ...options,
-      method: 'PUT',
-      body: JSON.stringify(data),
-    })
-  }
-
-  // DELETE request
-  async delete(endpoint, options = {}) {
-    return this.request(endpoint, { ...options, method: 'DELETE' })
+    const post = await response.json()
+    console.log('Post:', post)
+    return post
+  } catch (error) {
+    console.error('Error:', error)
+    throw error
   }
 }
 
-// Usage
-const api = new ApiClient('https://jsonplaceholder.typicode.com')
+// Função para criar um post
+async function createPost(postData) {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    })
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    console.log('Post created:', data)
+    return data
+  } catch (error) {
+    console.error('Error creating post:', error)
+    throw error
+  }
+}
+
+// Testando as funções
 async function main() {
   try {
-    // Get all posts
-    const posts = await api.get('/posts')
-    console.log('All posts:', posts)
+    // Buscar um post
+    const post = await fetchPost(1)
+    console.log('Fetched post:', post)
 
-    // Get a specific post
-    const post = await api.get('/posts/1')
-    console.log('Post 1:', post)
-
-    // Create a new post
-    const newPost = await api.post('/posts', {
+    // Criar um novo post
+    const newPost = await createPost({
       title: 'My New Post',
       body: 'This is the content of my new post',
       userId: 1,
     })
     console.log('Created post:', newPost)
-
-    // Update a post
-    const updatedPost = await api.put('/posts/1', {
-      id: 1,
-      title: 'Updated Post',
-      body: 'This post has been updated',
-      userId: 1,
-    })
-    console.log('Updated post:', updatedPost)
-
-    // Delete a post
-    await api.delete('/posts/1')
-    console.log('Post deleted')
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Error in main function:', error)
   }
 }
 
 main()
 ```
 
-### Example 3: Fetching Data in Parallel
+### Example 2: Parallel Requests
 
 ```javascript
-async function fetchDashboardData() {
+async function fetchUserAndPosts(userId) {
   try {
-    // Fetch multiple resources in parallel
-    const [users, posts, comments] = await Promise.all([
-      fetch('https://jsonplaceholder.typicode.com/users').then((res) =>
-        res.json()
-      ),
-      fetch('https://jsonplaceholder.typicode.com/posts').then((res) =>
-        res.json()
-      ),
-      fetch('https://jsonplaceholder.typicode.com/comments').then((res) =>
-        res.json()
-      ),
+    // Fazendo duas requisições em paralelo
+    const [userResponse, postsResponse] = await Promise.all([
+      fetch(`https://jsonplaceholder.typicode.com/users/${userId}`),
+      fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`),
     ])
 
-    // Process the data
-    const userCount = users.length
-    const postCount = posts.length
-    const commentCount = comments.length
-
-    // Calculate some statistics
-    const postsPerUser = postCount / userCount
-    const commentsPerPost = commentCount / postCount
-
-    // Return the dashboard data
-    return {
-      userCount,
-      postCount,
-      commentCount,
-      postsPerUser,
-      commentsPerPost,
-      recentPosts: posts.slice(0, 5),
-      recentComments: comments.slice(0, 5),
+    if (!userResponse.ok || !postsResponse.ok) {
+      throw new Error('One or more requests failed')
     }
+
+    const user = await userResponse.json()
+    const posts = await postsResponse.json()
+
+    console.log('User:', user)
+    console.log('User posts:', posts)
+
+    return { user, posts }
   } catch (error) {
-    console.error('Error fetching dashboard data:', error)
+    console.error('Error:', error)
     throw error
   }
 }
 
-// Usage
-fetchDashboardData()
-  .then((dashboardData) => {
-    console.log('Dashboard data:', dashboardData)
-    // Update UI with dashboard data
-  })
-  .catch((error) => {
-    console.error('Failed to load dashboard:', error)
-    // Show error message to user
-  })
+// Testando a função
+fetchUserAndPosts(1)
 ```
 
 ## Practice Exercises
 
-1. Create a function that fetches a user's profile and their recent posts from an API.
-2. Implement a function that creates a new resource and then updates it.
-3. Create a function that fetches data from multiple endpoints and combines the results.
-4. Implement error handling for API requests with retry logic.
-5. Create a simple search function that fetches results from an API as the user types.
+1. Crie uma função que busca um post específico pelo ID usando fetch
+2. Crie uma função que busca todos os posts de um usuário específico
+3. Crie uma função que busca os comentários de um post específico
+4. Crie uma função que busca um usuário e seus posts em paralelo usando Promise.all
 
 ## Solutions
 
-### Exercise 1: Fetch User Profile and Posts
+### Exercise 1: Fetch a Specific Post
 
 ```javascript
-async function fetchUserProfileAndPosts(userId) {
+async function fetchPost(postId) {
   try {
-    // Fetch user profile
-    const userResponse = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${userId}`
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${postId}`
     )
 
-    if (!userResponse.ok) {
-      throw new Error(`Failed to fetch user: ${userResponse.status}`)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
     }
 
-    const user = await userResponse.json()
+    const post = await response.json()
+    console.log('Post:', post)
+    return post
+  } catch (error) {
+    console.error('Error:', error)
+    throw error
+  }
+}
 
-    // Fetch user's posts
-    const postsResponse = await fetch(
+// Teste a função
+fetchPost(1)
+```
+
+### Exercise 2: Fetch User Posts
+
+```javascript
+async function fetchUserPosts(userId) {
+  try {
+    const response = await fetch(
       `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
     )
-
-    if (!postsResponse.ok) {
-      throw new Error(`Failed to fetch posts: ${postsResponse.status}`)
-    }
-
-    const posts = await postsResponse.json()
-
-    // Return combined data
-    return {
-      profile: user,
-      posts: posts.slice(0, 5), // Get only the 5 most recent posts
-    }
-  } catch (error) {
-    console.error('Error:', error)
-    throw error
-  }
-}
-
-// Usage
-fetchUserProfileAndPosts(1)
-  .then((data) => {
-    console.log('User profile:', data.profile)
-    console.log('Recent posts:', data.posts)
-  })
-  .catch((error) => {
-    console.error('Failed to fetch user data:', error)
-  })
-```
-
-### Exercise 2: Create and Update Resource
-
-```javascript
-async function createAndUpdatePost() {
-  try {
-    // Create a new post
-    const createResponse = await fetch(
-      'https://jsonplaceholder.typicode.com/posts',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: 'My New Post',
-          body: 'This is the content of my new post',
-          userId: 1,
-        }),
-      }
-    )
-
-    if (!createResponse.ok) {
-      throw new Error(`Failed to create post: ${createResponse.status}`)
-    }
-
-    const newPost = await createResponse.json()
-    console.log('Created post:', newPost)
-
-    // Update the post
-    const updateResponse = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${newPost.id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...newPost,
-          title: 'Updated Post Title',
-          body: 'This post has been updated',
-        }),
-      }
-    )
-
-    if (!updateResponse.ok) {
-      throw new Error(`Failed to update post: ${updateResponse.status}`)
-    }
-
-    const updatedPost = await updateResponse.json()
-    console.log('Updated post:', updatedPost)
-
-    return updatedPost
-  } catch (error) {
-    console.error('Error:', error)
-    throw error
-  }
-}
-
-// Usage
-createAndUpdatePost()
-  .then((post) => {
-    console.log('Final post:', post)
-  })
-  .catch((error) => {
-    console.error('Operation failed:', error)
-  })
-```
-
-### Exercise 3: Fetch and Combine Data
-
-```javascript
-async function fetchCombinedData() {
-  try {
-    // Fetch data from multiple endpoints
-    const [users, posts, comments] = await Promise.all([
-      fetch('https://jsonplaceholder.typicode.com/users').then((res) =>
-        res.json()
-      ),
-      fetch('https://jsonplaceholder.typicode.com/posts').then((res) =>
-        res.json()
-      ),
-      fetch('https://jsonplaceholder.typicode.com/comments').then((res) =>
-        res.json()
-      ),
-    ])
-
-    // Combine the data
-    const combinedData = users.map((user) => {
-      // Find posts by this user
-      const userPosts = posts.filter((post) => post.userId === user.id)
-
-      // Find comments by this user
-      const userComments = comments.filter(
-        (comment) => comment.email === user.email
-      )
-
-      // Return combined user data
-      return {
-        ...user,
-        posts: userPosts,
-        comments: userComments,
-      }
-    })
-
-    return combinedData
-  } catch (error) {
-    console.error('Error fetching combined data:', error)
-    throw error
-  }
-}
-
-// Usage
-fetchCombinedData()
-  .then((data) => {
-    console.log('Combined data:', data)
-
-    // Example: Find user with most posts
-    const userWithMostPosts = data.reduce((prev, current) =>
-      current.posts.length > prev.posts.length ? current : prev
-    )
-
-    console.log('User with most posts:', userWithMostPosts.name)
-    console.log('Post count:', userWithMostPosts.posts.length)
-  })
-  .catch((error) => {
-    console.error('Failed to fetch combined data:', error)
-  })
-```
-
-### Exercise 4: Retry Logic for API Requests
-
-```javascript
-async function fetchWithRetry(url, options = {}, maxRetries = 3, delay = 1000) {
-  let retries = 0
-
-  while (retries < maxRetries) {
-    try {
-      const response = await fetch(url, options)
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
-
-      return await response.json()
-    } catch (error) {
-      retries++
-
-      if (retries === maxRetries) {
-        throw new Error(`Failed after ${maxRetries} retries: ${error.message}`)
-      }
-
-      console.log(
-        `Retry ${retries}/${maxRetries} after error: ${error.message}`
-      )
-
-      // Wait before retrying
-      await new Promise((resolve) => setTimeout(resolve, delay))
-    }
-  }
-}
-
-// Usage
-fetchWithRetry('https://jsonplaceholder.typicode.com/posts/1')
-  .then((data) => {
-    console.log('Data fetched successfully:', data)
-  })
-  .catch((error) => {
-    console.error('All retries failed:', error)
-  })
-```
-
-### Exercise 5: Search as You Type
-
-```javascript
-// Debounce function to limit API calls
-function debounce(func, delay) {
-  let timeoutId
-
-  return function (...args) {
-    clearTimeout(timeoutId)
-
-    timeoutId = setTimeout(() => {
-      func.apply(this, args)
-    }, delay)
-  }
-}
-
-// Search function
-async function searchPosts(query) {
-  try {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts`)
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
 
     const posts = await response.json()
-
-    // Filter posts based on query (client-side filtering for this example)
-    const filteredPosts = posts.filter(
-      (post) =>
-        post.title.toLowerCase().includes(query.toLowerCase()) ||
-        post.body.toLowerCase().includes(query.toLowerCase())
-    )
-
-    return filteredPosts
+    console.log('User posts:', posts)
+    return posts
   } catch (error) {
-    console.error('Error searching posts:', error)
+    console.error('Error:', error)
     throw error
   }
 }
 
-// Debounced search function
-const debouncedSearch = debounce(async (query) => {
-  try {
-    // Show loading state
-    document.getElementById('results').innerHTML = 'Searching...'
-
-    const results = await searchPosts(query)
-
-    // Display results
-    document.getElementById('results').innerHTML =
-      results.length > 0
-        ? `<ul>${results.map((post) => `<li>${post.title}</li>`).join('')}</ul>`
-        : 'No results found'
-  } catch (error) {
-    document.getElementById('results').innerHTML = `Error: ${error.message}`
-  }
-}, 300)
-
-// Add event listener to search input
-document.getElementById('search-input').addEventListener('input', (e) => {
-  const query = e.target.value.trim()
-
-  if (query) {
-    debouncedSearch(query)
-  } else {
-    document.getElementById('results').innerHTML = ''
-  }
-})
+// Teste a função
+fetchUserPosts(1)
 ```
+
+### Exercise 3: Fetch Post Comments
+
+```javascript
+async function fetchPostComments(postId) {
+  try {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
+    )
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    const comments = await response.json()
+    console.log('Post comments:', comments)
+    return comments
+  } catch (error) {
+    console.error('Error:', error)
+    throw error
+  }
+}
+
+// Teste a função
+fetchPostComments(1)
+```
+
+### Exercise 4: Fetch User and Posts in Parallel
+
+```javascript
+async function fetchUserAndPosts(userId) {
+  try {
+    const [userResponse, postsResponse] = await Promise.all([
+      fetch(`https://jsonplaceholder.typicode.com/users/${userId}`),
+      fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`),
+    ])
+
+    if (!userResponse.ok || !postsResponse.ok) {
+      throw new Error('One or more requests failed')
+    }
+
+    const user = await userResponse.json()
+    const posts = await postsResponse.json()
+
+    console.log('User:', user)
+    console.log('User posts:', posts)
+
+    return { user, posts }
+  } catch (error) {
+    console.error('Error:', error)
+    throw error
+  }
+}
+
+// Teste a função
+fetchUserAndPosts(1)
+```
+
+## Dicas para os Exercícios
+
+1. Use sempre try/catch para tratar erros
+2. Verifique se a resposta está ok antes de processar os dados
+3. Use async/await para tornar o código mais legível
+4. Use Promise.all quando precisar fazer múltiplas requisições em paralelo
+5. Teste suas funções com diferentes IDs para garantir que funcionam corretamente
+
+## Como Testar
+
+1. Abra o console do navegador (F12)
+2. Cole o código da função que você quer testar
+3. Chame a função com um ID de teste (por exemplo: 1)
+4. Verifique o resultado no console
 
 ## Conclusion
 
