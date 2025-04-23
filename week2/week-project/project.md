@@ -58,6 +58,6 @@ Create a web application that allows users to search for Pokemon using the PokeA
 
 ## 📚 Resources
 
-- [PokeAPI Documentation](https://pokeapi.co/docs/v2)
+- [PokeAPI Documentation](https://pokeapi.co)
 - [LocalStorage MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
 - [Fetch API MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
