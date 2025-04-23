@@ -26,7 +26,7 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 - **Thursday**: [async/await and API consumption with fetch](week2/thursday.md)
 - **Friday**: [LocalStorage, JSON, and Introduction to HTML with JavaScript](week2/friday.md)
 
-**Practical Project**: Create a console app that consumes a real API (e.g., fetching user data from JSONPlaceholder).
+**Practical Project**: [🎮 Pokemon Team Builder Project.](week2/week-project/project.md)
 
 ### 🖥️ Week 3 - DOM Manipulation and Events
 
