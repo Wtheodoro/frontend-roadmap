@@ -24,7 +24,7 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 - **Tuesday**: [Object Manipulation (Object.keys(), Object.values())](week2/tuesday.md)
 - **Wednesday**: [Asynchronous Functions (setTimeout, setInterval, Promises)](week2/wednesday.md)
 - **Thursday**: [async/await and API consumption with fetch](week2/thursday.md)
-- **Friday**: LocalStorage and JSON (JSON.stringify, JSON.parse)
+- **Friday**: [LocalStorage, JSON, and Introduction to HTML with JavaScript](week2/friday.md)
 
 **Practical Project**: Create a console app that consumes a real API (e.g., fetching user data from JSONPlaceholder).
 
