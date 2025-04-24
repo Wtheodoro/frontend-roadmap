@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon Team Builder</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .search-container {
+        margin-bottom: 20px;
+      }
+      .pokemon-card {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+      }
+      .pokemon-image {
+        width: 150px;
+        height: 150px;
+      }
+      .team-container {
+        margin-top: 30px;
+      }
+      .team-pokemon {
+        display: inline-block;
+        margin: 10px;
+        text-align: center;
+      }
+      .team-pokemon img {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pokemon Team Builder</h1>
+
+    <div class="search-container">
+      <input type="text" id="pokemonInput" placeholder="Enter Pokemon name" />
+      <button onclick="searchPokemon()">Search</button>
+    </div>
+
+    <div id="pokemonResult"></div>
+
+    <div class="team-container">
+      <h2>My Team</h2>
+      <div id="teamDisplay"></div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
