@@ -32,13 +32,13 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 
 **Goal**: Learn to manipulate web interfaces.
 
-- **Monday**: Element Selection (document.querySelector)
-- **Tuesday**: Text and Class Manipulation (innerText, classList.add)
-- **Wednesday**: Events (click, input, keydown, keyup)
-- **Thursday**: Creating Elements Dynamically (appendChild)
-- **Friday**: Basic CSS Introduction and JS Styling (style)
+- **Monday**: [Element Selection (document.querySelector)](week3/monday.md)
+- **Tuesday**: [Text and Class Manipulation (innerText, classList.add)](week3/tuesday.md)
+- **Wednesday**: [Events (click, input, keydown, keyup)](week3/wednesday.md)
+- **Thursday**: [Creating Elements Dynamically (appendChild)](week3/thursday.md)
+- **Friday**: [Basic CSS Introduction and JS Styling (style)](week3/friday.md)
 
-**Practical Project**: Create an interactive counter (buttons to increase/decrease number on screen).
+**Practical Project**: [Create an interactive counter (buttons to increase/decrease number on screen).](week3/week-project/project.md)
 
 ### 🎨 Week 4 - CSS + Responsive Project
 
