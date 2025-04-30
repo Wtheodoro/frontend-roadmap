@@ -44,11 +44,11 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 
 **Goal**: Work with styles and layout.
 
-- **Monday**: Box Model, Flexbox
-- **Tuesday**: Grid Layout
-- **Wednesday**: Dynamic CSS Styling
-- **Thursday**: Media Queries and Responsiveness
-- **Friday**: Creating a Simple Website Layout
+- **Monday**: [Box Model, Flexbox](week4/monday.md)
+- **Tuesday**: [Grid Layout](week4/tuesday.md)
+- **Wednesday**: [Dynamic CSS Styling](week4/wednesday.md)
+- **Thursday**: [Media Queries and Responsiveness](week4/thursday.md)
+- **Friday**: [Creating a Simple Website Layout](week4/friday.md)
 
 **Practical Project**: Create a responsive landing page with HTML, CSS, and JS.
 
