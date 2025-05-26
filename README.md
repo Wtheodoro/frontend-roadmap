@@ -56,8 +56,8 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 
 **Goal**: Create your first components.
 
-- **Monday**: What is React? Installation and Project Structure
-- **Tuesday**: JSX and Basic Components (function Component() {})
+- **Monday**: [What is React? Installation and Project Structure](week5/monday.md)
+- **Tuesday**: [JSX and Basic Components (function Component() {})](week5/tuesday.md)
 - **Wednesday**: Props and State (useState)
 - **Thursday**: Events in React (onClick, onChange)
 - **Friday**: Conditional Rendering
