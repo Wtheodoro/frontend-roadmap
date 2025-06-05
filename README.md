@@ -58,9 +58,9 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 
 - **Monday**: [What is React? Installation and Project Structure](week5/monday.md)
 - **Tuesday**: [JSX and Basic Components (function Component() {})](week5/tuesday.md)
-- **Wednesday**: Props and State (useState)
-- **Thursday**: Events in React (onClick, onChange)
-- **Friday**: Conditional Rendering
+- **Wednesday**: [Props and State (useState)](week5/wednesday.md)
+- **Thursday**: [Events in React (onClick, onChange)](week5/thursday.md)
+- **Friday**: [Conditional Rendering](week5/friday.md)
 
 **Practical Project**: Create a counter with React.
 
