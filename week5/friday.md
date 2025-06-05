@@ -411,6 +411,112 @@ function VirtualList() {
 }
 ```
 
+## 🎯 Conditional Rendering
+
+### Using Boolean State
+
+```jsx
+// JavaScript Version
+function ToggleComponent() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  return (
+    <div>
+      <button onClick={() => setIsVisible(!isVisible)}>
+        {isVisible ? 'Hide' : 'Show'} Content
+      </button>
+      {isVisible && <div>This content is visible!</div>}
+    </div>
+  )
+}
+```
+
+```tsx
+// TypeScript Version
+function ToggleComponent() {
+  const [isVisible, setIsVisible] = useState<boolean>(false)
+
+  return (
+    <div>
+      <button onClick={() => setIsVisible(!isVisible)}>
+        {isVisible ? 'Hide' : 'Show'} Content
+      </button>
+      {isVisible && <div>This content is visible!</div>}
+    </div>
+  )
+}
+```
+
+### Multiple Conditions
+
+```jsx
+// JavaScript Version
+function StatusMessage() {
+  const [status, setStatus] = useState('idle') // 'idle' | 'loading' | 'success' | 'error'
+
+  return (
+    <div>
+      {status === 'loading' && <div>Loading...</div>}
+      {status === 'success' && <div>Success!</div>}
+      {status === 'error' && <div>Error occurred!</div>}
+      {status === 'idle' && <div>Ready to start</div>}
+    </div>
+  )
+}
+```
+
+```tsx
+// TypeScript Version
+type Status = 'idle' | 'loading' | 'success' | 'error'
+
+function StatusMessage() {
+  const [status, setStatus] = useState<Status>('idle')
+
+  return (
+    <div>
+      {status === 'loading' && <div>Loading...</div>}
+      {status === 'success' && <div>Success!</div>}
+      {status === 'error' && <div>Error occurred!</div>}
+      {status === 'idle' && <div>Ready to start</div>}
+    </div>
+  )
+}
+```
+
+### Conditional Styling
+
+```jsx
+// JavaScript Version
+function DynamicButton() {
+  const [isActive, setIsActive] = useState(false)
+
+  return (
+    <button
+      className={`button ${isActive ? 'active' : 'inactive'}`}
+      onClick={() => setIsActive(!isActive)}
+    >
+      {isActive ? 'Active' : 'Inactive'}
+    </button>
+  )
+}
+```
+
+```tsx
+// TypeScript Version
+function DynamicButton() {
+  const [isActive, setIsActive] = useState<boolean>(false)
+
+  return (
+    <button
+      className={`button ${isActive ? 'active' : 'inactive'}`}
+      onClick={() => setIsActive(!isActive)}
+    >
+      {isActive ? 'Active' : 'Inactive'}
+    </button>
+  )
+}
+```
+
 ## 💡 Best Practices
 
 1. **Key Selection**
