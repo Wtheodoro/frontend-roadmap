@@ -68,8 +68,8 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 
 **Goal**: Create reusable components and introduce hooks.
 
-- **Monday**: Creating Multiple Components
-- **Tuesday**: Component Communication (Props Drilling)
+- **Monday**: [Creating Multiple Components](week6/monday.md)
+- **Tuesday**: [Component Communication (Props Drilling)](week6/tuesday.md)
 - **Wednesday**: useEffect Hook and Lifecycle
 - **Thursday**: API Consumption in React (fetch)
 - **Friday**: List Manipulation in React (map)
