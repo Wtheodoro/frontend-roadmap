@@ -207,84 +207,72 @@ export function ProductCard({
 }
 ```
 
-## 🎮 Practical Exercise
+## �� Practical Exercise: Componify Project
 
-Create a simple e-commerce product listing with the following components:
+For this exercise, we'll be working with the [Componify](https://github.com/Wtheodoro/Componify) project, a React application with a cyberpunk theme. The goal is to break down the monolithic application into reusable components.
 
-##### JavaScript Version
+### Current Structure
 
-```javascript
-// components/ProductList.jsx
-import { useState } from 'react'
-import { ProductCard } from './ProductCard'
-import { ProductFilter } from './ProductFilter'
-import { ProductSort } from './ProductSort'
-
-export function ProductList() {
-  const [products, setProducts] = useState([])
-  const [filter, setFilter] = useState('')
-  const [sortBy, setSortBy] = useState('price')
-
-  return (
-    <div className='product-list'>
-      <div className='controls'>
-        <ProductFilter onFilter={setFilter} />
-        <ProductSort onSort={setSortBy} />
-      </div>
-      <div className='products-grid'>
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            {...product}
-            onAddToCart={(id) => console.log('Add to cart:', id)}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
+```
+src/
+  ├── App.jsx        # Main component
+  ├── App.css        # Global styles
+  └── assets/        # Static resources
 ```
 
-##### TypeScript Version
+### Exercise Steps
 
-```typescript
-// components/ProductList.tsx
-import { useState } from 'react'
-import { ProductCard } from './ProductCard'
-import { ProductFilter } from './ProductFilter'
-import { ProductSort } from './ProductSort'
+1. **Analyze the Current Code**
 
-interface Product {
-  id: string
-  title: string
-  price: number
-  image: string
-}
+   - Review the current `App.jsx` file
+   - Identify logical sections and UI elements
+   - Look for repeated patterns
 
-export function ProductList() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [filter, setFilter] = useState('')
-  const [sortBy, setSortBy] = useState('price')
+2. **Create Component Structure**
 
-  return (
-    <div className='product-list'>
-      <div className='controls'>
-        <ProductFilter onFilter={setFilter} />
-        <ProductSort onSort={setSortBy} />
-      </div>
-      <div className='products-grid'>
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            {...product}
-            onAddToCart={(id) => console.log('Add to cart:', id)}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
-```
+   ```
+   src/
+     ├── components/
+     │   ├── layout/
+     │   │   ├── Header.jsx
+     │   │   └── Footer.jsx
+     │   ├── sections/
+     │   │   ├── Hero.jsx
+     │   │   └── Cards.jsx
+     │   └── ui/
+     │       ├── Card.jsx
+     │       └── Button.jsx
+     ├── App.jsx
+     └── App.css
+   ```
+
+3. **Component Breakdown Tasks**
+
+   - Extract the header navigation into `Header.jsx`
+   - Create a `Hero` component for the main section
+   - Break down the cards section into reusable components
+   - Extract common UI elements into the `ui` folder
+
+4. **Component Communication**
+
+   - Identify shared state
+   - Plan prop passing
+   - Consider using context if needed
+
+5. **Styling Organization**
+   - Move component-specific styles to their respective files
+   - Create a shared styles folder for common styles
+   - Use CSS modules or styled-components if preferred
+
+### Expected Outcome
+
+After completing the exercise, you should have:
+
+- A well-organized component structure
+- Reusable UI components
+- Clear separation of concerns
+- Maintainable and scalable code
+- Preserved cyberpunk styling and animations
 
 ## 📝 Best Practices
 
@@ -310,18 +298,6 @@ export function ProductList() {
    - Group related components together
    - Use index files for clean exports
    - Keep component files close to where they're used
-
-## 🎯 Challenge
-
-Create a simple task management system with the following components:
-
-1. `TaskList`: Main container component
-2. `TaskItem`: Individual task component
-3. `TaskForm`: Form for adding new tasks
-4. `TaskFilter`: Component for filtering tasks
-5. `TaskStats`: Component showing task statistics
-
-Try implementing it first in JavaScript, then add TypeScript types to make it more robust!
 
 ## 📚 Additional Resources
 
