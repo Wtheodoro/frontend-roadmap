@@ -71,8 +71,8 @@ A comprehensive 8-week curriculum designed to transform beginners into frontend 
 - **Monday**: [Creating Multiple Components](week6/monday.md)
 - **Tuesday**: [Component Communication (Props Drilling)](week6/tuesday.md)
 - **Wednesday**: [useEffect Hook and Lifecycle](week6/wednesday.md)
-- **Thursday**: API Consumption in React (fetch)
-- **Friday**: List Manipulation in React (map)
+- **Thursday**: [API Consumption in React (fetch)](week6/thursday.md)
+- **Friday**: [List Manipulation in React (map)](week6/friday.md)
 
 **Practical Project**: Create a Todo List in React.
 
